@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -76,15 +77,17 @@ fun NoteScreen(navController: NavController, slug: String) {
 
             loadingState.IfLoaded { note ->
                 Box(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    Text(
-                        modifier = Modifier
-                            .padding(
-                                start = 10.dp,
-                                end = 10.dp
-                            )
-                            .navigationBarsPadding(),
-                        text = note.content ?: ""
-                    )
+                    SelectionContainer {
+                        Text(
+                            modifier = Modifier
+                                .padding(
+                                    start = 10.dp,
+                                    end = 10.dp
+                                )
+                                .navigationBarsPadding(),
+                            text = note.content ?: ""
+                        )
+                    }
                 }
             }
         }
