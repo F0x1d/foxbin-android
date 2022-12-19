@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">foxbin</string>
+    <string name="notes">Notes</string>
+    <string name="publish">Publish</string>
+    <string name="slug">Slug</string>
+    <string name="content">Content</string>
+    <string name="network_problems">There are some problems with internet connection</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="retry">Retry</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
+</resources>
