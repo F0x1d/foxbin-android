@@ -22,7 +22,9 @@ fun ErrorContent(error: String?, onRetryClick: () -> Unit) {
     ) {
         Column(modifier = Modifier.align(Alignment.Center)) {
             Icon(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .size(30.dp),
                 painter = painterResource(id = R.drawable.ic_clear),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.error

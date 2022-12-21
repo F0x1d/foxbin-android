@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">foxbin</string>
+    <string name="notes">Записи</string>
+    <string name="publish">Создать</string>
+    <string name="slug">Ссылка</string>
+    <string name="content">Контент</string>
+    <string name="network_problems">Проблемы с интернет соединением</string>
+    <string name="login">Вход</string>
+    <string name="register">Регистрация</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="retry">Повторить</string>
+    <string name="edit">Редактировать</string>
+</resources>

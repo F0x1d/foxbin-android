@@ -21,16 +21,20 @@ class LoginViewModel @Inject constructor(
     private val authRepository: FoxBinAuthRepository
 ): BaseViewModel<FoxBinAuthResponse>(application) {
 
-    fun login(username: String, password: String, onDone: () -> Unit) = auth(authRepository.login(username, password), onDone)
-    fun register(username: String, password: String, onDone: () -> Unit) = auth(authRepository.register(username, password), onDone)
+    fun login(username: String, password: String, onDone: () -> Unit) = auth(authRepository.login(username, password), username, onDone)
+    fun register(username: String, password: String, onDone: () -> Unit) = auth(authRepository.register(username, password), username, onDone)
 
-    private fun auth(flow: Flow<ResultWrapper<FoxBinAuthResponse>>, onDone: () -> Unit) = viewModelScope.launch {
+    private fun auth(flow: Flow<ResultWrapper<FoxBinAuthResponse>>, username: String, onDone: () -> Unit) = viewModelScope.launch {
         loadingStateFlow.update { LoadingState.LOADING }
 
         flow.collect { result ->
             loadingStateFlow.update {
                 result.toLoadingState {
-                    userDataStore.saveAccessToken(it.value.accessToken)
+                    userDataStore.apply {
+                        saveAccessToken(it.value.accessToken)
+                        saveUsername(username)
+                    }
+
                     onDone.invoke()
                 }
             }

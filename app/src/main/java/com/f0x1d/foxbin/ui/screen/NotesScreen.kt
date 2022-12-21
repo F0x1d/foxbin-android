@@ -30,14 +30,16 @@ import java.util.*
 @Composable
 fun NotesScreen(navController: NavController, viewModel: NotesViewModel) {
     val loadingState by viewModel.loadingStateFlow.collectAsState()
+
     val accessToken by viewModel.accessTokenFlow.collectAsState(initial = null)
+    val username by viewModel.usernameFlow.collectAsState(initial = null)
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
             LargeTopAppBar(
-                title = { Text(text = stringResource(id = R.string.notes)) },
+                title = { Text(text = username ?: stringResource(id = R.string.notes)) },
                 scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(

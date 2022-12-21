@@ -56,6 +56,8 @@ fun PublishScreen(navController: NavController, notesViewModel: NotesViewModel, 
 
                 loadingState.IfIdle {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                        Spacer(modifier = Modifier.size(10.dp))
+
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxWidth()

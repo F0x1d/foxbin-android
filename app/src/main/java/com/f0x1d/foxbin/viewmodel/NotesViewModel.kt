@@ -23,6 +23,7 @@ class NotesViewModel @Inject constructor(
 ): BaseViewModel<List<FoxBinNote>>(application) {
 
     val accessTokenFlow = userDataStore.accessToken
+    val usernameFlow = userDataStore.username
 
     init {
         observeTokenChanges()
@@ -33,7 +34,10 @@ class NotesViewModel @Inject constructor(
     }
 
     fun logout() = viewModelScope.launch {
-        userDataStore.saveAccessToken(null)
+        userDataStore.apply {
+            saveAccessToken(null)
+            saveUsername(null)
+        }
     }
 
     fun delete(slug: String) = viewModelScope.launch {
