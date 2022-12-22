@@ -11,4 +11,5 @@
     <string name="password">Password</string>
     <string name="retry">Retry</string>
     <string name="edit">Edit</string>
+    <string name="authentication_required">Authentication required</string>
 </resources>

@@ -19,11 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.f0x1d.foxbin.R
+import com.f0x1d.foxbin.database.entity.FoxBinNote
 import com.f0x1d.foxbin.extensions.*
 import com.f0x1d.foxbin.model.Screen
-import com.f0x1d.foxbin.network.model.response.FoxBinNote
 import com.f0x1d.foxbin.viewmodel.NotesViewModel
-import com.f0x1d.foxbin.viewmodel.base.LoadingState
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +59,7 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel) {
             loadingState.DefaultIfLoading()
             loadingState.DefaultIfError { viewModel.reload() }
 
-            loadingState.IfLoaded {
+            loadingState.IfLoaded { notes ->
                 LazyColumn(
                     modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                     contentPadding = PaddingValues(
@@ -71,8 +70,6 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel) {
                     ),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    val notes = (loadingState as LoadingState.LOADED<List<FoxBinNote>>).data
-
                     items(
                         notes,
                         key = { note -> note.slug.hashCode() }

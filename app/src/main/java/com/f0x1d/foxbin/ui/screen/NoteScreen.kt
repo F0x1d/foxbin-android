@@ -77,16 +77,20 @@ fun NoteScreen(navController: NavController, slug: String) {
 
             loadingState.IfLoaded { note ->
                 Box(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    SelectionContainer {
-                        Text(
-                            modifier = Modifier
-                                .padding(
-                                    start = 10.dp,
-                                    end = 10.dp
-                                )
-                                .navigationBarsPadding(),
-                            text = note.content ?: ""
-                        )
+                    Column {
+                        Spacer(modifier = Modifier.size(10.dp))
+
+                        SelectionContainer {
+                            Text(
+                                modifier = Modifier
+                                    .padding(
+                                        start = 10.dp,
+                                        end = 10.dp
+                                    )
+                                    .navigationBarsPadding(),
+                                text = note.content ?: ""
+                            )
+                        }
                     }
                 }
             }

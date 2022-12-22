@@ -1,5 +1,7 @@
 package com.f0x1d.foxbin.repository
 
+import com.f0x1d.foxbin.database.AppDatabase
+import com.f0x1d.foxbin.database.entity.FoxBinNote
 import com.f0x1d.foxbin.network.model.request.FoxBinCreateDocumentRequestBody
 import com.f0x1d.foxbin.network.service.FoxBinService
 import com.f0x1d.foxbin.repository.base.BaseRepository
@@ -11,17 +13,32 @@ import javax.inject.Singleton
 @Singleton
 class FoxBinNotesRepository @Inject constructor(
     private val service: FoxBinService,
-    private val userDataStore: UserDataStore
+    private val userDataStore: UserDataStore,
+    private val database: AppDatabase
 ): BaseRepository() {
 
     fun create(content: String, slug: String?) = apiCallInFlow {
+        val accessToken = userDataStore.accessToken.first()
+
         service.create(
             FoxBinCreateDocumentRequestBody(
                 content,
-                userDataStore.accessToken.first(),
+                accessToken,
                 slug?.ifEmpty { null }
             )
-        ).slug
+        ).slug.also { createNote(it, content, accessToken != null) }
+    }
+
+    private fun createNote(slug: String, content: String, editable: Boolean) {
+        database.notesDao().insert(
+            FoxBinNote(
+                slug,
+                System.currentTimeMillis(),
+                editable,
+                content,
+                true
+            )
+        )
     }
 
     fun edit(content: String, slug: String) = apiCallInFlow {
@@ -31,18 +48,51 @@ class FoxBinNotesRepository @Inject constructor(
                 userDataStore.accessToken.first(),
                 slug
             )
-        ).slug
+        ).slug.also {
+            val savedNote = database.notesDao().getBySlug(slug) ?: return@also
+            database.notesDao().update(savedNote.copy(content = content))
+        }
     }
 
-    fun getAll(accessToken: String) = apiCallInFlow {
-        service.getAll(accessToken).notes
+    fun getAll() = apiCallInControllableFlow {
+        val savedNotes = database.notesDao().getAllMyNotes()
+
+        processAndUpdateCache(
+            savedNotes.isNotEmpty(),
+            savedNotes
+        ) {
+            val accessToken = userDataStore.accessToken.first()
+
+            if (accessToken == null)
+                savedNotes
+            else
+                service.getAll(accessToken).notes.also {
+                    database.notesDao().insertAll(it)
+                }
+        }
     }
 
-    fun get(slug: String) = apiCallInFlow {
-        service.get(slug, userDataStore.accessToken.first()).note
+    fun get(slug: String) = apiCallInControllableFlow {
+        val accessToken = userDataStore.accessToken.first()
+
+        val savedNote = database.notesDao().getBySlug(slug)
+
+        processAndUpdateCache(
+            savedNote?.content != null && savedNote.content.isNotEmpty(),
+            savedNote
+        ) {
+            service.get(slug, accessToken).note.also {
+                database.notesDao().insertOrUpdateContent(
+                    it.copy(
+                        myNote = if (accessToken == null) false else (it.editable == true)
+                    )
+                )
+            }
+        }
     }
 
-    fun delete(slug: String) = apiCallInFlow {
-        service.delete(slug, userDataStore.accessToken.first() ?: return@apiCallInFlow)
+    fun delete(slug: String, accessToken: String) = apiCallInFlow {
+        service.delete(slug, accessToken)
+        database.notesDao().deleteBySlug(slug)
     }
 }
