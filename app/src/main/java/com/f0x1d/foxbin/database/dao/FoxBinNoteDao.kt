@@ -25,11 +25,22 @@ interface FoxBinNoteDao {
         }
     }
 
+    @Transaction
+    fun updateMyNotes(notes: List<FoxBinNote>) {
+        insertAll(notes)
+        val updatedSlugs = notes.map { it.slug }
+
+        deleteAll(getAllMyNotes().filterNot { updatedSlugs.contains(it.slug) })
+    }
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(notes: List<FoxBinNote>)
 
     @Update
     fun update(note: FoxBinNote)
+
+    @Delete
+    fun deleteAll(notes: List<FoxBinNote>)
 
     @Query("DELETE FROM FoxBinNote WHERE slug = :slug")
     fun deleteBySlug(slug: String)

@@ -67,7 +67,7 @@ class FoxBinNotesRepository @Inject constructor(
                 savedNotes
             else
                 service.getAll(accessToken).notes.also {
-                    database.notesDao().insertAll(it)
+                    database.notesDao().updateMyNotes(it)
                 }
         }
     }

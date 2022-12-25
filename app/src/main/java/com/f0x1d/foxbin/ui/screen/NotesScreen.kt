@@ -1,5 +1,6 @@
 package com.f0x1d.foxbin.ui.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -76,6 +77,7 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel) {
                     ) { note ->
                         NoteItem(
                             note = note,
+                            accessToken = accessToken,
                             navController = navController,
                             viewModel = viewModel
                         )
@@ -101,47 +103,38 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun LazyItemScope.NoteItem(note: FoxBinNote, navController: NavController, viewModel: NotesViewModel) {
+fun LazyItemScope.NoteItem(note: FoxBinNote, accessToken: String?, navController: NavController, viewModel: NotesViewModel) {
     val context = LocalContext.current
 
     OutlinedCard(
         modifier = Modifier
             .fillMaxWidth()
             .animateItemPlacement(),
+        border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondaryContainer),
         onClick = { navController.navigate("${Screen.Note.route}/${note.slug}") }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 20.dp)
+            ) {
+                Spacer(modifier = Modifier.size(20.dp))
                 Text(
-                    modifier = Modifier.padding(
-                        top = 20.dp,
-                        start = 20.dp
-                    ),
                     text = note.slug,
                     fontWeight = FontWeight.Bold
                 )
 
                 Spacer(modifier = Modifier.size(10.dp))
 
-                Text(
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        bottom = 20.dp
-                    ),
-                    text = Date(note.date).toLocaleString()
-                )
+                Text(text = Date(note.date).toLocaleString())
+                Spacer(modifier = Modifier.size(20.dp))
             }
 
             Spacer(modifier = Modifier.size(10.dp))
 
-            Column(
-                modifier = Modifier
-                    .padding(
-                        top = 5.dp,
-                        end = 5.dp,
-                        bottom = 5.dp
-                    )
-            ) {
+            Column(modifier = Modifier.padding(end = 5.dp)) {
+                Spacer(modifier = Modifier.size(5.dp))
                 IconButton(onClick = { context.shareNote(note.slug) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_share),
@@ -150,13 +143,16 @@ fun LazyItemScope.NoteItem(note: FoxBinNote, navController: NavController, viewM
                     )
                 }
 
-                IconButton(onClick = { viewModel.delete(note.slug) }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_delete),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.error
-                    )
+                if (accessToken != null) {
+                    IconButton(onClick = { viewModel.delete(note.slug) }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_delete),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error
+                        )
+                    }
                 }
+                Spacer(modifier = Modifier.size(5.dp))
             }
         }
     }
