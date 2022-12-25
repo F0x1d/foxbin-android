@@ -11,5 +11,4 @@
     <string name="password">Пароль</string>
     <string name="retry">Повторить</string>
     <string name="edit">Редактировать</string>
-    <string name="authentication_required">Требуется авторизация</string>
 </resources>
