@@ -27,10 +27,14 @@ interface FoxBinNoteDao {
 
     @Transaction
     fun updateMyNotes(notes: List<FoxBinNote>) {
-        insertAll(notes)
-        val updatedSlugs = notes.map { it.slug }
+        val myNotes = getAllMyNotes()
+        val myNotesSlugs = myNotes.map { it.slug }
 
-        deleteAll(getAllMyNotes().filterNot { updatedSlugs.contains(it.slug) })
+        val notesToInsert = notes.filterNot { myNotesSlugs.contains(it.slug) }
+        insertAll(notesToInsert)
+
+        val existingSlugs = notes.map { it.slug }
+        deleteAll(myNotes.filterNot { existingSlugs.contains(it.slug) })
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
