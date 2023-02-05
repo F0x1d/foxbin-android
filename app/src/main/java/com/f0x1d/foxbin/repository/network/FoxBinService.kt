@@ -1,11 +1,11 @@
-package com.f0x1d.foxbin.network.service
+package com.f0x1d.foxbin.repository.network
 
-import com.f0x1d.foxbin.network.model.request.FoxBinAuthRequestBody
-import com.f0x1d.foxbin.network.model.request.FoxBinCreateDocumentRequestBody
-import com.f0x1d.foxbin.network.model.response.FoxBinAuthResponse
-import com.f0x1d.foxbin.network.model.response.FoxBinCreatedDocumentResponse
-import com.f0x1d.foxbin.network.model.response.FoxBinNoteResponse
-import com.f0x1d.foxbin.network.model.response.FoxBinNotesResponse
+import com.f0x1d.foxbin.model.network.request.FoxBinAuthRequestBody
+import com.f0x1d.foxbin.model.network.request.FoxBinCreateDocumentRequestBody
+import com.f0x1d.foxbin.model.network.response.FoxBinAuthResponse
+import com.f0x1d.foxbin.model.network.response.FoxBinCreatedDocumentResponse
+import com.f0x1d.foxbin.model.network.response.FoxBinNoteResponse
+import com.f0x1d.foxbin.model.network.response.FoxBinNotesResponse
 import retrofit2.http.*
 
 interface FoxBinService {

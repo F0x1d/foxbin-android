@@ -1,7 +1,7 @@
 package com.f0x1d.foxbin.repository.base
 
-import com.f0x1d.foxbin.network.ResultWrapper
-import com.f0x1d.foxbin.network.safeApiCall
+import com.f0x1d.foxbin.repository.network.ResultWrapper
+import com.f0x1d.foxbin.repository.network.safeApiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow

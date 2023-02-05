@@ -1,6 +1,6 @@
-package com.f0x1d.foxbin.network
+package com.f0x1d.foxbin.repository.network
 
-import com.f0x1d.foxbin.network.model.response.FoxBinErrorResponse
+import com.f0x1d.foxbin.model.network.response.FoxBinErrorResponse
 import com.google.gson.Gson
 import retrofit2.HttpException
 import java.io.IOException

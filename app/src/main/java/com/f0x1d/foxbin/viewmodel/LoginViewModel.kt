@@ -3,9 +3,9 @@ package com.f0x1d.foxbin.viewmodel
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.f0x1d.foxbin.database.AppDatabase
-import com.f0x1d.foxbin.network.ResultWrapper
-import com.f0x1d.foxbin.network.model.response.FoxBinAuthResponse
+import com.f0x1d.foxbin.model.network.response.FoxBinAuthResponse
 import com.f0x1d.foxbin.repository.FoxBinAuthRepository
+import com.f0x1d.foxbin.repository.network.ResultWrapper
 import com.f0x1d.foxbin.store.datastore.UserDataStore
 import com.f0x1d.foxbin.viewmodel.base.BaseViewModel
 import com.f0x1d.foxbin.viewmodel.base.LoadingState

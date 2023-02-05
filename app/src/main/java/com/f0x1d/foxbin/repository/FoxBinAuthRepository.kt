@@ -1,8 +1,8 @@
 package com.f0x1d.foxbin.repository
 
-import com.f0x1d.foxbin.network.model.request.FoxBinAuthRequestBody
-import com.f0x1d.foxbin.network.service.FoxBinService
+import com.f0x1d.foxbin.model.network.request.FoxBinAuthRequestBody
 import com.f0x1d.foxbin.repository.base.BaseRepository
+import com.f0x1d.foxbin.repository.network.FoxBinService
 import javax.inject.Inject
 import javax.inject.Singleton
 

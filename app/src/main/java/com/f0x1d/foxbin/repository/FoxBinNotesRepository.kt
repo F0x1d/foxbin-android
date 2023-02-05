@@ -2,9 +2,9 @@ package com.f0x1d.foxbin.repository
 
 import com.f0x1d.foxbin.database.AppDatabase
 import com.f0x1d.foxbin.database.entity.FoxBinNote
-import com.f0x1d.foxbin.network.model.request.FoxBinCreateDocumentRequestBody
-import com.f0x1d.foxbin.network.service.FoxBinService
+import com.f0x1d.foxbin.model.network.request.FoxBinCreateDocumentRequestBody
 import com.f0x1d.foxbin.repository.base.BaseRepository
+import com.f0x1d.foxbin.repository.network.FoxBinService
 import com.f0x1d.foxbin.store.datastore.UserDataStore
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject

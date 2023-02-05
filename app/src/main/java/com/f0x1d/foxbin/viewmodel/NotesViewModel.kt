@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.f0x1d.foxbin.R
 import com.f0x1d.foxbin.database.AppDatabase
 import com.f0x1d.foxbin.database.entity.FoxBinNote
-import com.f0x1d.foxbin.network.ResultWrapper
 import com.f0x1d.foxbin.repository.FoxBinNotesRepository
+import com.f0x1d.foxbin.repository.network.ResultWrapper
 import com.f0x1d.foxbin.store.datastore.UserDataStore
 import com.f0x1d.foxbin.viewmodel.base.BaseViewModel
 import com.f0x1d.foxbin.viewmodel.base.LoadingState

@@ -1,7 +1,7 @@
 package com.f0x1d.foxbin.di
 
 import com.f0x1d.foxbin.FoxBinApp
-import com.f0x1d.foxbin.network.service.FoxBinService
+import com.f0x1d.foxbin.repository.network.FoxBinService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -3,7 +3,7 @@ package com.f0x1d.foxbin.viewmodel.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.f0x1d.foxbin.R
-import com.f0x1d.foxbin.network.ResultWrapper
+import com.f0x1d.foxbin.repository.network.ResultWrapper
 import kotlinx.coroutines.flow.MutableStateFlow
 
 abstract class BaseViewModel<T>(application: Application): AndroidViewModel(application) {

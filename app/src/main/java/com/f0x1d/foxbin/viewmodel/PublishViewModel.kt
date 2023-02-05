@@ -2,8 +2,8 @@ package com.f0x1d.foxbin.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.f0x1d.foxbin.network.ResultWrapper
 import com.f0x1d.foxbin.repository.FoxBinNotesRepository
+import com.f0x1d.foxbin.repository.network.ResultWrapper
 import com.f0x1d.foxbin.viewmodel.base.BaseViewModel
 import com.f0x1d.foxbin.viewmodel.base.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
